@@ -3,27 +3,63 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83337CB62670C2E800CC3D46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83337CB52670C2E800CC3D46 /* GoogleService-Info.plist */; };
 		835E18F2266FE5F3009122EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E18F1266FE5F3009122EA /* AppDelegate.swift */; };
 		835E18F4266FE5F3009122EA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E18F3266FE5F3009122EA /* SceneDelegate.swift */; };
-		835E18F6266FE5F3009122EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E18F5266FE5F3009122EA /* ViewController.swift */; };
+		835E18F6266FE5F3009122EA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E18F5266FE5F3009122EA /* HomeViewController.swift */; };
 		835E18F9266FE5F3009122EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 835E18F7266FE5F3009122EA /* Main.storyboard */; };
 		835E18FB266FE5FB009122EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 835E18FA266FE5FB009122EA /* Assets.xcassets */; };
 		835E18FE266FE5FB009122EA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 835E18FC266FE5FB009122EA /* LaunchScreen.storyboard */; };
+		835E1913266FE97C009122EA /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1912266FE97C009122EA /* ExploreViewController.swift */; };
+		835E1917266FE98B009122EA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1916266FE98B009122EA /* CameraViewController.swift */; };
+		835E191A266FE998009122EA /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1919266FE998009122EA /* NotificationsViewController.swift */; };
+		835E191D266FE9B4009122EA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E191C266FE9B4009122EA /* ProfileViewController.swift */; };
+		835E1920266FE9BE009122EA /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E191F266FE9BE009122EA /* UserListViewController.swift */; };
+		835E1923266FE9CD009122EA /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1922266FE9CD009122EA /* SignInViewController.swift */; };
+		835E1926266FE9D7009122EA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1925266FE9D7009122EA /* SignUpViewController.swift */; };
+		835E1929266FE9E8009122EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1928266FE9E8009122EA /* SettingsViewController.swift */; };
+		835E192C266FE9F3009122EA /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E192B266FE9F3009122EA /* TabBarViewController.swift */; };
+		835E1931266FEA42009122EA /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1930266FEA42009122EA /* PostViewController.swift */; };
+		835E1935266FEA5D009122EA /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1934266FEA5D009122EA /* APICaller.swift */; };
+		835E1938266FEA6D009122EA /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1937266FEA6D009122EA /* StorageManager.swift */; };
+		835E193B266FEDF8009122EA /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E193A266FEDF8009122EA /* DatabaseManager.swift */; };
+		835E193E266FEE09009122EA /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E193D266FEE08009122EA /* AuthenticationManager.swift */; };
+		835E1941266FEE1D009122EA /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E1940266FEE1D009122EA /* HapticsManager.swift */; };
+		CDC16B8D5D16A539B326DEF1 /* Pods_Bandit___IOS_Academy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5453429717474F1C0D572F2D /* Pods_Bandit___IOS_Academy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C50B6A8A6F490703F824721 /* Pods-Bandit - IOS Academy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bandit - IOS Academy.release.xcconfig"; path = "Target Support Files/Pods-Bandit - IOS Academy/Pods-Bandit - IOS Academy.release.xcconfig"; sourceTree = "<group>"; };
+		5453429717474F1C0D572F2D /* Pods_Bandit___IOS_Academy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Pods_Bandit___IOS_Academy.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57B796A99F0C395A38F14DCC /* Pods-Bandit - IOS Academy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bandit - IOS Academy.debug.xcconfig"; path = "Target Support Files/Pods-Bandit - IOS Academy/Pods-Bandit - IOS Academy.debug.xcconfig"; sourceTree = "<group>"; };
+		83337CB52670C2E800CC3D46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		835E18EE266FE5F3009122EA /* Bandit - IOS Academy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bandit - IOS Academy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		835E18F1266FE5F3009122EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		835E18F3266FE5F3009122EA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		835E18F5266FE5F3009122EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		835E18F5266FE5F3009122EA /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		835E18F8266FE5F3009122EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		835E18FA266FE5FB009122EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		835E18FD266FE5FB009122EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		835E18FF266FE5FB009122EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		835E1912266FE97C009122EA /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		835E1916266FE98B009122EA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		835E1919266FE998009122EA /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		835E191C266FE9B4009122EA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		835E191F266FE9BE009122EA /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		835E1922266FE9CD009122EA /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		835E1925266FE9D7009122EA /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		835E1928266FE9E8009122EA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		835E192B266FE9F3009122EA /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		835E1930266FEA42009122EA /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		835E1934266FEA5D009122EA /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		835E1937266FEA6D009122EA /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		835E193A266FEDF8009122EA /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		835E193D266FEE08009122EA /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		835E1940266FEE1D009122EA /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +67,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDC16B8D5D16A539B326DEF1 /* Pods_Bandit___IOS_Academy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		794F4AB6E163D0783FD0565B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5453429717474F1C0D572F2D /* Pods_Bandit___IOS_Academy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		835E18E5266FE5F3009122EA = {
 			isa = PBXGroup;
 			children = (
 				835E18F0266FE5F3009122EA /* Bandit - IOS Academy */,
 				835E18EF266FE5F3009122EA /* Products */,
+				BC1D1950D5FBAA8BD40D802C /* Pods */,
+				794F4AB6E163D0783FD0565B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +103,120 @@
 		835E18F0266FE5F3009122EA /* Bandit - IOS Academy */ = {
 			isa = PBXGroup;
 			children = (
-				835E18F1266FE5F3009122EA /* AppDelegate.swift */,
-				835E18F3266FE5F3009122EA /* SceneDelegate.swift */,
-				835E18F5266FE5F3009122EA /* ViewController.swift */,
-				835E18F7266FE5F3009122EA /* Main.storyboard */,
-				835E18FA266FE5FB009122EA /* Assets.xcassets */,
-				835E18FC266FE5FB009122EA /* LaunchScreen.storyboard */,
+				835E190E266FE906009122EA /* Managers */,
+				835E190D266FE8FD009122EA /* ViewModels */,
+				835E190C266FE8F5009122EA /* Models */,
+				835E190B266FE8E7009122EA /* Views */,
+				835E190A266FE8C6009122EA /* Controllers */,
+				835E1908266FE8B5009122EA /* Resources */,
 				835E18FF266FE5FB009122EA /* Info.plist */,
 			);
 			path = "Bandit - IOS Academy";
+			sourceTree = "<group>";
+		};
+		835E1908266FE8B5009122EA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				83337CB52670C2E800CC3D46 /* GoogleService-Info.plist */,
+				835E18FA266FE5FB009122EA /* Assets.xcassets */,
+				835E18F1266FE5F3009122EA /* AppDelegate.swift */,
+				835E18F3266FE5F3009122EA /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		835E190A266FE8C6009122EA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				835E1911266FE95E009122EA /* Other */,
+				835E1910266FE950009122EA /* Core */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		835E190B266FE8E7009122EA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				835E192F266FEA0F009122EA /* StoryBoard */,
+				835E192E266FEA09009122EA /* Others */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		835E190C266FE8F5009122EA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		835E190D266FE8FD009122EA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		835E190E266FE906009122EA /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				835E1934266FEA5D009122EA /* APICaller.swift */,
+				835E1937266FEA6D009122EA /* StorageManager.swift */,
+				835E193A266FEDF8009122EA /* DatabaseManager.swift */,
+				835E193D266FEE08009122EA /* AuthenticationManager.swift */,
+				835E1940266FEE1D009122EA /* HapticsManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		835E1910266FE950009122EA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				835E18F5266FE5F3009122EA /* HomeViewController.swift */,
+				835E1912266FE97C009122EA /* ExploreViewController.swift */,
+				835E1916266FE98B009122EA /* CameraViewController.swift */,
+				835E1919266FE998009122EA /* NotificationsViewController.swift */,
+				835E191C266FE9B4009122EA /* ProfileViewController.swift */,
+				835E192B266FE9F3009122EA /* TabBarViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		835E1911266FE95E009122EA /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				835E191F266FE9BE009122EA /* UserListViewController.swift */,
+				835E1922266FE9CD009122EA /* SignInViewController.swift */,
+				835E1925266FE9D7009122EA /* SignUpViewController.swift */,
+				835E1928266FE9E8009122EA /* SettingsViewController.swift */,
+				835E1930266FEA42009122EA /* PostViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		835E192E266FEA09009122EA /* Others */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		835E192F266FEA0F009122EA /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				835E18F7266FE5F3009122EA /* Main.storyboard */,
+				835E18FC266FE5FB009122EA /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		BC1D1950D5FBAA8BD40D802C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57B796A99F0C395A38F14DCC /* Pods-Bandit - IOS Academy.debug.xcconfig */,
+				3C50B6A8A6F490703F824721 /* Pods-Bandit - IOS Academy.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +226,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 835E1902266FE5FB009122EA /* Build configuration list for PBXNativeTarget "Bandit - IOS Academy" */;
 			buildPhases = (
+				076F4676C488FFD59C2EDEE9 /* [CP] Check Pods Manifest.lock */,
 				835E18EA266FE5F3009122EA /* Sources */,
 				835E18EB266FE5F3009122EA /* Frameworks */,
 				835E18EC266FE5F3009122EA /* Resources */,
+				44921F68D1A07FBF2C620386 /* [CP] Embed Pods Frameworks */,
+				83337CB82670C5BD00CC3D46 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -125,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				835E18FE266FE5FB009122EA /* LaunchScreen.storyboard in Resources */,
+				83337CB62670C2E800CC3D46 /* GoogleService-Info.plist in Resources */,
 				835E18FB266FE5FB009122EA /* Assets.xcassets in Resources */,
 				835E18F9266FE5F3009122EA /* Main.storyboard in Resources */,
 			);
@@ -132,12 +288,86 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		076F4676C488FFD59C2EDEE9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bandit - IOS Academy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44921F68D1A07FBF2C620386 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bandit - IOS Academy/Pods-Bandit - IOS Academy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bandit - IOS Academy/Pods-Bandit - IOS Academy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bandit - IOS Academy/Pods-Bandit - IOS Academy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83337CB82670C5BD00CC3D46 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		835E18EA266FE5F3009122EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				835E18F6266FE5F3009122EA /* ViewController.swift in Sources */,
+				835E1941266FEE1D009122EA /* HapticsManager.swift in Sources */,
+				835E193B266FEDF8009122EA /* DatabaseManager.swift in Sources */,
+				835E1913266FE97C009122EA /* ExploreViewController.swift in Sources */,
+				835E1920266FE9BE009122EA /* UserListViewController.swift in Sources */,
+				835E1929266FE9E8009122EA /* SettingsViewController.swift in Sources */,
+				835E1935266FEA5D009122EA /* APICaller.swift in Sources */,
+				835E1931266FEA42009122EA /* PostViewController.swift in Sources */,
+				835E1917266FE98B009122EA /* CameraViewController.swift in Sources */,
+				835E192C266FE9F3009122EA /* TabBarViewController.swift in Sources */,
+				835E18F6266FE5F3009122EA /* HomeViewController.swift in Sources */,
+				835E1926266FE9D7009122EA /* SignUpViewController.swift in Sources */,
+				835E193E266FEE09009122EA /* AuthenticationManager.swift in Sources */,
+				835E191A266FE998009122EA /* NotificationsViewController.swift in Sources */,
+				835E1923266FE9CD009122EA /* SignInViewController.swift in Sources */,
+				835E191D266FE9B4009122EA /* ProfileViewController.swift in Sources */,
+				835E1938266FEA6D009122EA /* StorageManager.swift in Sources */,
 				835E18F2266FE5F3009122EA /* AppDelegate.swift in Sources */,
 				835E18F4266FE5F3009122EA /* SceneDelegate.swift in Sources */,
 			);
@@ -283,6 +513,7 @@
 		};
 		835E1903266FE5FB009122EA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57B796A99F0C395A38F14DCC /* Pods-Bandit - IOS Academy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -303,6 +534,7 @@
 		};
 		835E1904266FE5FB009122EA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C50B6A8A6F490703F824721 /* Pods-Bandit - IOS Academy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
