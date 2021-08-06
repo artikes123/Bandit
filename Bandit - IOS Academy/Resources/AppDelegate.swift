@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         self.window?.makeKeyAndVisible()
         FirebaseApp.configure()
-        
+//        print("userkeydefualts vs \(UserDefaults.standard.string(forKey: "username"))")
+//        do {
+//            try Auth.auth().signOut()
+//        }
+//        catch {
+//
+//        }
+     
         return true
     }
 
@@ -30,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {

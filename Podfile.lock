@@ -1,4 +1,5 @@
 PODS:
+  - AMTabView (0.1.2)
   - Appirater (2.3.1)
   - Firebase/Analytics (7.10.0):
     - Firebase/Core
@@ -95,12 +96,14 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - ProgressHUD (13.6)
   - PromisesObjC (1.2.12)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
 
 DEPENDENCIES:
+  - AMTabView
   - Appirater
   - Firebase/Analytics
   - Firebase/Auth
@@ -108,10 +111,12 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Database
   - Firebase/Storage
+  - ProgressHUD
   - SDWebImage
 
 SPEC REPOS:
   trunk:
+    - AMTabView
     - Appirater
     - Firebase
     - FirebaseAnalytics
@@ -128,10 +133,12 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - ProgressHUD
     - PromisesObjC
     - SDWebImage
 
 SPEC CHECKSUMS:
+  AMTabView: b8a74f5ea27ec367d8f6fa614ebc77be9af38064
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
   Firebase: fffddd0bab8677d07376538365faa93ff3889b39
   FirebaseAnalytics: 4641d7ae4220174f6ca5626163ffc5de2e90391e
@@ -148,9 +155,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: c15460c5422175d1389e60592aaa71b8163d164c
+PODFILE CHECKSUM: 62a43844a9990f40e40e871d9881ec4436c0c28a
 
 COCOAPODS: 1.10.1

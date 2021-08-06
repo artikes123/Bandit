@@ -78,7 +78,7 @@
 - (NSString *)URL {
     FIRDatabaseReference *parent = [self parent];
     return parent == nil
-               ? [self.repo description]
+    ? [self.repo description]
                : [NSString
                      stringWithFormat:@"%@/%@", [parent description],
                                       [FStringUtilities urlEncoded:self.key]];
