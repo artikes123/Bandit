@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AMTabView
  
 class ExploreViewController: UIViewController {
     
@@ -356,3 +357,4 @@ extension ExploreViewController: ExploreManagerDelegate {
     
      
 }
+

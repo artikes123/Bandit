@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AMTabView
 
 class NotificationsViewController: UIViewController {
     
@@ -226,7 +227,7 @@ extension NotificationsViewController: NotificationUserFollowTableViewCellDelega
     }
     
     func notificationUserFollowTableViewCellDelegate(_ cell: NotificationUserFollowTableViewCell, didTapAvatarFor username: String) {
-        let vc = ProfileViewController(user: User(userName: username, profilePictureURL: nil, identifier: "123"))
+        let vc = ProfileViewController(user: User(userName: username, profilePictureURL: nil, identifier: "123", instrument: ""))
         vc.title = username.uppercased()
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -250,8 +251,15 @@ extension NotificationsViewController: NotificationPostCommentTableViewCellDeleg
 extension NotificationsViewController {
     func openPost(with identifier: String) {
         // Resolve post model from dataBase
-        let vc = PostViewController(model: PostModel(postURL: URL(fileURLWithPath: ""), identifier: identifier, user: User(userName: "Kanye West", profilePictureURL: nil, identifier: UUID().uuidString)))
+        let vc = PostViewController(model: PostModel(postURL: URL(fileURLWithPath: ""), user: User(userName: "Kanye West", profilePictureURL: nil, identifier: UUID().uuidString, instrument: "")))
         vc.title = "video"
         navigationController?.pushViewController(vc, animated: true)
     }
+}
+extension NotificationsViewController: TabItem {
+    var tabImage: UIImage? {
+        return UIImage(systemName: "bell.fill")
+    }
+    
+    
 }

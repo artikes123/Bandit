@@ -8,9 +8,11 @@
 import UIKit
 import AVFoundation
 
+
 protocol PostViewControllerDelegate: AnyObject {
     func postViewController(_vc: PostViewController, didTapCommentButtonFor: PostModel)
     func postViewController(_vc: PostViewController, didTapProfileButtonFor: PostModel)
+    func postViewController(_vc: PostViewController, didTapBanditButtonFor: PostModel)
 }
 
 class PostViewController: UIViewController {
@@ -19,12 +21,22 @@ class PostViewController: UIViewController {
     
     
     var model: PostModel
+    var isPostInMusicGenre = false
+    
     //  MARK: - Buttonların obje olarak oluşturulması
     private let likeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.tintColor = .white
+        return button
+    }()
+    
+    private let backButton : UIButton = {
+        let button = UIButton()
+        button.largeContentImage = UIImage(systemName: "arrowshape.turn.up.backward")
+        button.setImage(UIImage(systemName: "arrowshape.turn.up.backward"), for: .normal)
+        
         return button
     }()
     
@@ -42,6 +54,13 @@ class PostViewController: UIViewController {
         return button
     }()
     
+    private let banditButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "logo"), for: .normal)
+        
+        return button
+    }()
+    
     private let captionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -53,7 +72,7 @@ class PostViewController: UIViewController {
     }()
     
     private let profileButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .custom)
         button.setBackgroundImage(UIImage(named: "Test"), for: .normal)
         button.tintColor = .white
         button.imageView?.contentMode = .scaleAspectFill
@@ -62,10 +81,25 @@ class PostViewController: UIViewController {
         return button
     }()
     
+    private let usernameLabel: UILabel = {
+        let label = UILabel()
+        label.sizeToFit()
+        label.text = "Username"
+        label.font = UIFont(name: "MarkerFelt-Thin", size: 18)
+        
+        return label
+    }()
+    
+    private let profileButtonAndUsernameView : UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
     var player: AVPlayer?
     
     private let videoView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.clipsToBounds = true
         
         return view
@@ -88,81 +122,141 @@ class PostViewController: UIViewController {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
+    init(model: PostModel, isPostInMusicGenre: Bool) {
+        self.model = model
+        self.isPostInMusicGenre = isPostInMusicGenre
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //MARK: - DidLoad && viewLayOut
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVideo(with: model)
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isHidden = true
+        
         view.addSubview(spinner)
         view.addSubview(videoView)
+        view.addSubview(captionLabel)
+        
         view.backgroundColor = .black
-        view.frame = CGRect(x: 0, y: 10, width: view.width, height: 200)
+        view.frame = CGRect(x: 0, y: 0, width: view.width, height: 200)
         
         setUpButtons()
         setUpDoubleTapToLike()
-        view.addSubview(captionLabel)
-        view.addSubview(profileButton)
+        
         profileButton.addTarget(self, action: #selector(didTapProfileButton), for: .touchUpInside)
-
+        
     }
     
     override func viewDidLayoutSubviews() { // Subview'ların konumlarını vs (CGRECT) ayarlıyoruz.
         super.viewDidLayoutSubviews()
+        let size : CGFloat = 45
+        let labelSize = captionLabel.sizeThatFits(CGSize(width: view.width - size - 10, height: view.height)) // Comment'in belirlenen alana sığması gerektiğini belirtiyoruz.
         
-        videoView.frame = CGRect(x: 5, y: view.safeAreaInsets.top, width: view.width - 10, height: view.height - (tabBarController?.tabBar.frame.height)!)
-        videoView.layer.cornerRadius = 10
-        
-        videoView.backgroundColor = .darkGray
+        videoView.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height - view.safeAreaInsets.bottom)
+        videoView.layer.cornerRadius = 20
+        videoView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner] //Corner mask to top right and left
+        videoView.backgroundColor = .secondarySystemBackground
         
         spinner.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         spinner.center = view.center
         
-        //MARK: - Buttonların CGRect setup
-        let size : CGFloat = 45
-        let yStart: CGFloat = view.height - (size * 4) - view.safeAreaInsets.bottom
-        for (index, button) in [likeButton,commentButton,shareButton].enumerated() {
-            button.frame = CGRect(x: view.width - size - 10, y: yStart + (CGFloat(index) * size),  width: size, height: size)
-           
-        }
         //Caption Label
         captionLabel.sizeToFit()
-        let labelSize = captionLabel.sizeThatFits(CGSize(width: view.width - size - 10, height: view.height)) // Comment'in belirlenen alana sığması gerektiğini belirtiyoruz.
         captionLabel.frame = CGRect(x: 5,
                                     y: videoView.bottom - labelSize.height - 5,
                                     width: view.width - size - 12,
                                     height: labelSize.height)
-        //ProfileButton
-        profileButton.frame = CGRect(x: videoView.left + 10,
-                                     y: videoView.top + 5,
-                                     width: size,
-                                     height: size)
         
-        profileButton.layer.cornerRadius = size/2
+        banditButton.frame = CGRect(x: view.width - 50, y: view.safeAreaInsets.top + 10, width: size, height: size)
+        profileButton.layer.cornerRadius = 25
+        profileButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        usernameLabel.frame = CGRect(x: profileButton.right + 5, y: profileButton.top + 5, width: view.width - 100, height: 45)
+        
+        if isPostInMusicGenre {
+            profileButtonAndUsernameView.frame = CGRect(x: view.width/4, y: view.safeAreaInsets.top + 10, width: view.width - banditButton.left, height: 50)
+            backButton.isHidden = false
+            backButton.tintColor = .yellow
+            backButton.frame = CGRect(x: view.left + 5, y: view.safeAreaInsets.top + 10, width: 45, height: 45)
+        }
+        else {
+            profileButtonAndUsernameView.frame = CGRect(x: view.left + 5, y: view.safeAreaInsets.top + 10, width: view.width - banditButton.left, height: 50)
+        }
+
+ 
+        //MARK: - Buttonların CGRect setup
+        let yStart: CGFloat = view.height - (size * 4) - view.safeAreaInsets.bottom
+        for (index, button) in [likeButton,commentButton,shareButton].enumerated() {
+            button.frame = CGRect(x: view.width - size - 10, y: yStart + (CGFloat(index) * size) + 10,  width: size, height: size)
+        }
+        
     }
     
+    //    MARK: - Setting UP  buttons
+    
+    func setUpButtons() {
+        view.addSubview(likeButton)
+        view.addSubview(commentButton)
+        view.addSubview(shareButton)
+        view.addSubview(banditButton)
+        view.addSubview(profileButton)
+        view.addSubview(backButton)
+        
+        backButton.isHidden = true
+        
+        usernameLabel.text = model.user.userName
+        profileButtonAndUsernameView.addSubview(usernameLabel)
+        profileButtonAndUsernameView.addSubview(profileButton)
+        
+        view.addSubview(profileButtonAndUsernameView)
+        
+        likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
+        commentButton.addTarget(self, action: #selector(didTapComment), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
+        banditButton.addTarget(self, action: #selector(didTapBandit), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        
+        
+        if let profilePictureURL = model.user.profilePictureURL {
+            do {
+                let imageData = try Data(contentsOf: profilePictureURL)
+                let image = UIImage(data: imageData)
+                profileButton.setBackgroundImage(image, for: .normal)
+            }
+            catch {
+                print("cant convert profile picture data to image in Post VC")
+            }
+        }
+        else {
+            profileButton.setBackgroundImage(UIImage(named: "Test"), for: .normal)
+        }
+        
+ 
+        
+    }
+    
+    //MARK: - Configure Video
+    
     private func configureVideo(with model: PostModel) {
-
-                // Video path'i URL'ye çevirdik
-                player = AVPlayer(url: model.postURL) // Vİdeo'yu player'a atmak
-            
-                let playerLayer1 = AVPlayerLayer(player: player) //Video'yu ekranda gösterebilmek için onu AVPLayer layer'a dönüştürüyoruz
-                playerLayer1.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height/2)
-                playerLayer1.videoGravity = .resizeAspect
-                
-                let playerLayer2 = AVPlayerLayer(player: player) //Video'yu ekranda gösterebilmek için onu AVPLayer layer'a dönüştürüyoruz
-                playerLayer2.frame = CGRect(x: 0 , y: view.height/2, width: view.width, height: view.height/2)
-                playerLayer2.videoGravity = .resizeAspect
-                
-                player?.volume = 0
-                
-                videoView.layer.addSublayer(playerLayer1)
-                videoView.layer.addSublayer(playerLayer2)
-                
-                player?.play()
-
+        
+        // Video path'i URL'ye çevirdik
+        player = AVPlayer(url: model.postURL) // Vİdeo'yu player'a atmak
+        
+        let playerLayer1 = AVPlayerLayer(player: player) //Video'yu ekranda gösterebilmek için onu AVPLayer layer'a dönüştürüyoruz
+        playerLayer1.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height)
+        playerLayer1.videoGravity = .resizeAspectFill
+        
+        player?.volume = 0
+        videoView.layer.addSublayer(playerLayer1)
+        
+        player?.play()
+        
         // Video bittikten sonra video resetlenmesi
         guard let player = player else {
             return
@@ -174,20 +268,11 @@ class PostViewController: UIViewController {
             self.player?.seek(to: .zero)
             player.play()
             
+            
         }
-    }
-  
-    //    MARK: - Setting UP  buttons
-    
-    func setUpButtons() {
-        view.addSubview(likeButton)
-        view.addSubview(commentButton)
-        view.addSubview(shareButton)
         
-        likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
-        commentButton.addTarget(self, action: #selector(didTapComment), for: .touchUpInside)
-        shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
     }
+
     //    MARK: - Like Comment Share Buttonlarının selector functions OBJc
     
     @objc private func didTapLike() {
@@ -214,6 +299,24 @@ class PostViewController: UIViewController {
     
     @objc func didTapProfileButton() {
         delegate?.postViewController(_vc: self, didTapProfileButtonFor: model)
+    }
+    
+    @objc func didTapBandit() {
+        let alert = UIAlertController()
+        print("model url in postVC is \(model.postURL)")
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Show Bandits", style: .default, handler: { (_) in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Capture Bandit Video", style: .default, handler: { (_) in
+            self.navigationController?.pushViewController(BanditCameraViewController(with: self.model), animated: false)
+        }))
+        
+        present(alert, animated: false, completion: nil)
+    }
+    
+    @objc func didTapBackButton() {
+        dismiss(animated: true, completion: nil)
     }
     
     //MARK: - Double tap ile like fonksiyonu
@@ -244,7 +347,7 @@ class PostViewController: UIViewController {
                 if done {
                     UIView.animate(withDuration: 0.3) {
                         imageView.alpha = 0
-
+                        
                     }
                     
                 }
@@ -253,3 +356,4 @@ class PostViewController: UIViewController {
         
     }
 }
+

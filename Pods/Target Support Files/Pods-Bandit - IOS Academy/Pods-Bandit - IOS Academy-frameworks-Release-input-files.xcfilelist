@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-Bandit - IOS Academy/Pods-Bandit - IOS Academy-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AMTabView/AMTabView.framework
 ${BUILT_PRODUCTS_DIR}/Appirater/Appirater.framework
+${BUILT_PRODUCTS_DIR}/CircleBar/CircleBar.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework

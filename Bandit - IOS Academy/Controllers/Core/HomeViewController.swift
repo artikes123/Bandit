@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AMTabView
 
 class HomeViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class HomeViewController: UIViewController {
         
         let scrollView = UIScrollView()
         scrollView.bounces = false
+        scrollView.backgroundColor = .clear
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false //    Scroll View oluşturuluyor, horizontal false ayarlanıyor ki sırf vertical kayabilsin
         scrollView.refreshControl = UIRefreshControl()
@@ -49,7 +51,8 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .cyan
         view.addSubview(backgroundBandITImage)
-        view.addSubview(scrollView)
+        mainPageViewController.view.backgroundColor = .clear
+//        view.addSubview(scrollView)
     
         scrollView.contentInsetAdjustmentBehavior = .never
         
@@ -83,13 +86,13 @@ class HomeViewController: UIViewController {
     
     //    MARK: - 2) Feed ayarlanıyor
     private func setUpFeed(){
-        scrollView.contentSize = CGSize(width: view.width, height: view.height) // Scrollview'ın contentlerinin iki sayfa oluşunu ayarlıyoruz
+        scrollView.contentSize = CGSize(width: view.width, height: view.height - 50) // Scrollview'ın contentlerinin iki sayfa oluşunu ayarlıyoruz
         setUpForYouFeed()
     }
     //    MARK: - 3) Following ve For you Feed ayarlanıyor
     
     func setUpForYouFeed() {
-        setPostViewController(with: PostModel(postURL: URL(fileURLWithPath: ""), identifier: "", user: User(userName: "", profilePictureURL: nil, identifier: ""), banditURLs: nil))
+        setPostViewController(with: PostModel(postURL: URL(fileURLWithPath: ""), user: User(userName: "", profilePictureURL: nil, identifier: "", instrument: ""), banditFileNames: nil))
         
         StorageManager.shared.getFollowingUsersInfo {  (postsToShow, _) in
             
@@ -115,6 +118,12 @@ class HomeViewController: UIViewController {
 
 //MARK: - Extensions
 
+extension HomeViewController: TabItem {
+    var tabImage: UIImage? {
+    return UIImage(systemName: "house.fill")
+    }
+}
+
 //MARK: - SettingPostVC
 extension HomeViewController {
     private func setPostViewController(with model: PostModel) {
@@ -131,10 +140,11 @@ extension HomeViewController {
         
         mainPageViewController.dataSource = self
         
-        scrollView.addSubview(mainPageViewController.view)
+        view.addSubview(mainPageViewController.view)
+//        scrollView.addSubview(mainPageViewController.view)
         
         
-        mainPageViewController.view.frame = CGRect(x: 0, y: 0, width: scrollView.width, height: scrollView.height)
+        mainPageViewController.view.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height)
         
         addChild(mainPageViewController)
         mainPageViewController.didMove(toParent: self)
@@ -217,7 +227,6 @@ extension HomeViewController: UIScrollViewDelegate {
 
     //    MARK:- Profile Button tıklanması
     
-    
     func postViewController(_vc: PostViewController, didTapProfileButtonFor post: PostModel) {
         let user = post.user
         let vc = ProfileViewController(user: user)
@@ -228,7 +237,7 @@ extension HomeViewController: UIScrollViewDelegate {
 //MARK: - Postlardaki Comment bölümünün ortaya çıktığı zaman scroll view'ın vertical ya da horizontal kaydırılamaması
 
 extension HomeViewController: PostViewControllerDelegate {
-    
+
     func postViewController(_vc: PostViewController, didTapCommentButtonFor post: PostModel) {
         let vc = CommentsViewController(post: post)
         vc.delegate = self
@@ -250,6 +259,10 @@ extension HomeViewController: PostViewControllerDelegate {
         UIView.animate(withDuration: 0.2) {
             vc.view.frame = CGRect(x: 0, y: self.view.height - frame.height, width: self.view.width, height: self.view.height * 0.75)
         }
+    }
+    
+    func postViewController(_vc: PostViewController, didTapBanditButtonFor: PostModel) {
+        
     }
     
 }

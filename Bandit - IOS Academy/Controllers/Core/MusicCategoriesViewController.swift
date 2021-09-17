@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AMTabView
 
 class MusicCategoriesViewController: UIViewController {
     
@@ -249,6 +250,13 @@ extension MusicCategoriesViewController: UICollectionViewDelegate, UICollectionV
 
     }
 
+}
+extension MusicCategoriesViewController: TabItem {
+    var tabImage: UIImage? {
+        return UIImage(systemName: "music.note.list")
+    }
+    
+    
 }
 //MARK: - SearchBar Extension
 

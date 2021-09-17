@@ -130,7 +130,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func fetchProfile() {
         StorageManager.shared.downloadProfilePicture(for: user.userName) { [weak self] (url) in
-            self?.user = User(userName: (self?.user.userName)!, profilePictureURL: url, identifier: "")
+            self?.user = User(userName: (self?.user.userName)!, profilePictureURL: url, identifier: "", instrument: "")
         }
         
     }

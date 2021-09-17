@@ -10,14 +10,11 @@ import Foundation
 struct PostModel {
     
     var postURL: URL
-    let identifier: String
     let user : User
     var fileName: String = ""
     var caption: String = ""
     var postGenre: String = ""
-    var banditURLs: [URL?]?
-    
-
+    var banditFileNames: [String]?
     var likedByCurrentUser = false
     
     static func mockModels() -> [PostModel] {

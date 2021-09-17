@@ -5,9 +5,13 @@
 //  Created by Artun Erol on 8.06.2021.
 //
 
+
+
 import ProgressHUD
 import UIKit
 import AVFoundation
+import AMTabView
+
 
 class CameraViewController: UIViewController {
     
@@ -30,9 +34,7 @@ class CameraViewController: UIViewController {
     
     public var capturedVideoImageThumbnail : CGImage?
     
-    
-    
-    
+
     //View
     private let cameraView:UIView = {
         let view = UIView()
@@ -68,6 +70,7 @@ class CameraViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         tabBarController?.tabBar.isHidden = true
         ProgressHUD.dismiss()
         captureSession.startRunning()
@@ -89,6 +92,7 @@ class CameraViewController: UIViewController {
         
         else {
             captureSession.stopRunning()
+            AMTabsViewController().tabBarController?.tabBar.isHidden = false
             tabBarController?.tabBar.isHidden = false
             tabBarController?.selectedIndex = 0
         }
@@ -107,8 +111,8 @@ class CameraViewController: UIViewController {
             
             guard var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
-            
             }
+            
             url.appendPathComponent("video.mov")
             
             try? FileManager.default.removeItem(at: url)
@@ -151,7 +155,8 @@ class CameraViewController: UIViewController {
         }
         
         //update session(output)
-        captureSession.sessionPreset = .hd1920x1080
+        captureSession.sessionPreset = .high
+        
         if captureSession.canAddOutput(captureOutput) {
             captureSession.addOutput(captureOutput)
         }
@@ -159,7 +164,7 @@ class CameraViewController: UIViewController {
         //configure capture layer preview
         capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         capturePreviewLayer?.videoGravity = .resizeAspectFill
-        capturePreviewLayer?.frame = view.bounds
+        capturePreviewLayer?.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height)
         
         if let layer = capturePreviewLayer {
             cameraView.layer.addSublayer(layer)
@@ -169,6 +174,7 @@ class CameraViewController: UIViewController {
         captureSession.startRunning()
         
     }
+    
 }
 
 extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
@@ -186,10 +192,6 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
         
         capturedVideoURL = outputFileURL
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNext))
-        
-        print(outputFileURL.absoluteString)
-
-        
         
         let player = AVPlayer(url: outputFileURL)
         player.actionAtItemEnd = .none
@@ -240,3 +242,11 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     }
     
 }
+extension CameraViewController: TabItem {
+    var tabImage: UIImage? {
+        return UIImage(systemName: "camera.fill")
+    }
+    
+
+}
+

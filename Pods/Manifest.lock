@@ -1,6 +1,7 @@
 PODS:
   - AMTabView (0.1.2)
   - Appirater (2.3.1)
+  - CircleBar (0.8.2)
   - Firebase/Analytics (7.10.0):
     - Firebase/Core
   - Firebase/Auth (7.10.0):
@@ -105,6 +106,7 @@ PODS:
 DEPENDENCIES:
   - AMTabView
   - Appirater
+  - CircleBar
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -118,6 +120,7 @@ SPEC REPOS:
   trunk:
     - AMTabView
     - Appirater
+    - CircleBar
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -140,6 +143,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AMTabView: b8a74f5ea27ec367d8f6fa614ebc77be9af38064
   Appirater: 44a4651f7912a17dc906b655f0c215d5bb768b84
+  CircleBar: 8e17d2090e6e319b518010535a3145fb8fd68c22
   Firebase: fffddd0bab8677d07376538365faa93ff3889b39
   FirebaseAnalytics: 4641d7ae4220174f6ca5626163ffc5de2e90391e
   FirebaseAuth: 675f2c4eb4426e7c58a78a89965a6530e7863535
@@ -159,6 +163,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: 62a43844a9990f40e40e871d9881ec4436c0c28a
+PODFILE CHECKSUM: ab3af3e200fc06ee83fd57e3e27141d57858befc
 
 COCOAPODS: 1.10.1

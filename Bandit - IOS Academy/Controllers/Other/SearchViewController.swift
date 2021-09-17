@@ -159,7 +159,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         if downloadProfilePictureCompleted == true {
             
-            let vc = ProfileViewController(user: User(userName: selectedUser!, profilePictureURL: self.profilImage, identifier: ""))
+            let vc = ProfileViewController(user: User(userName: selectedUser!, profilePictureURL: self.profilImage, identifier: "", instrument: ""))
             vc.modalPresentationStyle = .popover
             
             self.present(vc, animated: true, completion: nil)

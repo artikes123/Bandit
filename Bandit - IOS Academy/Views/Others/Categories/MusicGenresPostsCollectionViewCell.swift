@@ -94,13 +94,12 @@ class MusicGenresPostsCollectionViewCell: UICollectionViewCell {
     
     //MARK: -
     
-    func configure(with posts: PostModel) {
+    func configure(with posts: PostModel, completion: @escaping (URL) -> Void) {
         if reload {
             StorageManager.shared.getDownloadURL(with: posts) { (result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let url):
-                        print("Post url \(url)")
                         let asset = AVAsset(url: url)
                         let generator = AVAssetImageGenerator(asset: asset)
 
@@ -114,6 +113,7 @@ class MusicGenresPostsCollectionViewCell: UICollectionViewCell {
                             self.postInstrument.image = UIImage(named: "guitar")
                             self.postInstrument.backgroundColor = .cyan
                             self.reload = false
+                            completion(url)
                         }
 
                         catch {

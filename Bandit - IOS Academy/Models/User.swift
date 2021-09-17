@@ -12,5 +12,6 @@ struct User {
     let userName: String
     let profilePictureURL: URL?
     let identifier: String
+    let instrument: String
     
 }

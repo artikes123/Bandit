@@ -15,21 +15,27 @@ class MusicGenrePostsViewController: UIViewController {
     
     private var selectedMusicGenre: MusicCategories
     
+    let refresh = UIRefreshControl()
+    
+
+    
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = .systemBackground
         collectionView.register(MusicGenresPostsCollectionViewCell.self, forCellWithReuseIdentifier: MusicGenresPostsCollectionViewCell().identifier)
         
         return collectionView
     }()
     
+    //MARK: - Life Cycle
     init(with genre: MusicCategories) {
         selectedMusicGenre = genre
-        
         super.init(nibName: nil, bundle: nil)
+        
     }
         
     required init?(coder: NSCoder) {
@@ -38,6 +44,10 @@ class MusicGenrePostsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        refresh.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        collectionView.refreshControl = refresh
+        
         title = selectedMusicGenre.title
         
         collectionView.delegate = self
@@ -51,30 +61,52 @@ class MusicGenrePostsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
+//MARK: - OBJC func
+    @objc func didPullToRefresh(_ sender: UIRefreshControl) {
+        refresh.beginRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.getVideosNamesAndUsers()
+            self.refresh.endRefreshing()
+            self.collectionView.reloadData()
+        }
+    }
     
-    
+//MARK: -
     private func getVideosNamesAndUsers() {
         DatabaseManager.shared.getGenrePosts(for: selectedMusicGenre) { [weak self] (postsDictionaryArray) in
+            
             DispatchQueue.main.async {
-                postsDictionaryArray.compactMap { postsDictionary in
-                    for (fileName, user) in postsDictionary {
+                for (filename , valueDictionary) in postsDictionaryArray {
+                    guard let username = valueDictionary["username"] as? String else {return}
+                    guard let bandit = valueDictionary["bandits"] as? [String]? else { return }
+                    guard let caption = valueDictionary["caption"] as? String?  else {return}
+                    
+                    self?.downloadUserProfileImage(for: username,completion: { (url) in
                         
-                        let userWithName = User(userName: user, profilePictureURL: nil, identifier: "")
-                        guard let url = URL(string: fileName + ".mov") else {
-                            return
-                        }
+                        let userWithName = User(userName: username, profilePictureURL: url, identifier: "", instrument: "")
+                        
+                        guard let url = URL(string: filename + ".mov") else {return}
+                        
                         let genre = (self?.selectedMusicGenre.title)!
                         
-                        let model = PostModel(postURL: url, identifier: "", user: userWithName, fileName: fileName, caption: "", postGenre: genre, banditURLs: nil, likedByCurrentUser: false)
-                        
+                        let model = PostModel(postURL: url, user: userWithName, fileName: filename, caption: caption ?? "", postGenre: genre, banditFileNames: bandit, likedByCurrentUser: false)
+                        self?.posts.removeAll()
                         self?.posts.append(model)
                         self?.collectionView.reloadData()
-                    }
+                    })
+                    
+                    
                     
                 }
             }
         }
     }
+    
+    private func downloadUserProfileImage(for username: String, completion: @escaping (URL?) -> Void) {
+        StorageManager.shared.downloadProfilePicture(for: username) { (url) in
+            completion(url)
+        }
+ }
 }
 
 //MARK: - CollectionView protocols
@@ -93,7 +125,9 @@ extension MusicGenrePostsViewController: UICollectionViewDelegate, UICollectionV
         }
         
         cell.layer.cornerRadius = 10
-        cell.configure(with: postModel)
+        cell.configure(with: postModel) { (url) in
+            self.posts[indexPath.row].postURL = url
+        }
         self.collectionView = collectionView
         
         return cell
@@ -101,8 +135,11 @@ extension MusicGenrePostsViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let vc = PostViewController(model: posts[indexPath.row])
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = PostViewController(model: posts[indexPath.row], isPostInMusicGenre: true)
+        vc.modalPresentationStyle = .fullScreen
+
+        present(vc, animated: true, completion: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -120,7 +157,5 @@ extension MusicGenrePostsViewController: UICollectionViewDelegate, UICollectionV
         // 1 line'da kaç item olacağını, aralarındaki uzaklıkları belirleyerek belirliyoruz.
         return 1
     }
-    
-    
-    
+
 }

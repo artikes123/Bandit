@@ -155,45 +155,41 @@ class CaptionViewController: UIViewController {
         ProgressHUD.show("Posting")
         let newVideoName = StorageManager.shared.generateVideoName()
         let genre = self.selectedGenre.first ?? ""
-    
-        StorageManager.shared.uploadVideoURL(from: videoURL, fileName: newVideoName + ".mov", genre: genre) { [weak self] (success) in
+        guard let user = UserDefaults.standard.string(forKey: "username") else {return}
+        let mockUser = User(userName: user, profilePictureURL: nil, identifier: "", instrument: "")
+        
+        let model = PostModel(postURL: videoURL, user: mockUser , fileName: newVideoName, caption: caption, postGenre: genre, banditFileNames: [], likedByCurrentUser: false)
+        
+        StorageManager.shared.uploadVideo(with: model) { [weak self] (success) in
             
             DispatchQueue.main.async {
                 if success {
-                    HapticsManager.shared.vibrate(for: .success)
                     ProgressHUD.dismiss()
-                    //Update database
-                    DatabaseManager.shared.insertPostsToDBUsers(with: newVideoName , caption: caption, genre: genre) { (databaseUpdated) in
-                        if databaseUpdated{
-                            DatabaseManager.shared.insertPostsToDB(with: newVideoName, genre: genre) { (completed) in
-                                if completed {
-                                    //reset camera switch to feed
+                    DatabaseManager.shared.insertPostsToDBUsers(with: model.fileName, caption: model.caption, genre: model.caption) {  (databaseUserUpdated) in
+                        if databaseUserUpdated {
+                            DatabaseManager.shared.insertPostToDBwithModel(with: model) { (updated) in
+                                if updated {
                                     self?.navigationController?.popToRootViewController(animated: true)
                                     self?.tabBarController?.selectedIndex = 0
                                     self?.tabBarController?.tabBar.isHidden = false
                                 }
                             }
                         }
-                        
                     }
-                    
                 }
                 else {
-                    HapticsManager.shared.vibrate(for: .error)
                     ProgressHUD.dismiss()
                     let alert = UIAlertController(title: "Whoops", message: "Unable to upload video", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
                     self?.present(alert, animated: true)
                 }
             }
+            
+            
         }
     }
-    
-    func uploadGenreToDB() {
-        
     }
     
-}
 // MARK: - CV Extension
 
 extension CaptionViewController: UICollectionViewDelegate, UICollectionViewDataSource {

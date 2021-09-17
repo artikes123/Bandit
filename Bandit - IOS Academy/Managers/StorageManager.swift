@@ -48,6 +48,22 @@ final class StorageManager {
         completion(true)
     }
     
+    public func uploadVideo(with model: PostModel, completion: @escaping (Bool) -> Void) {
+        let storageUploadDirectory = ["All_Videos/\(model.fileName + ".mov")", "Videos/\(model.user.userName)/\(model.fileName + ".mov")"]
+        
+        for directory in storageUploadDirectory {
+            storageBucket.child(directory).putFile(from: model.postURL,metadata: nil) { (_, error) in
+                guard error == nil else {
+                    print("uploading data error is \(error)")
+                    completion(false)
+                    return
+                }
+                
+            }
+        }
+        completion(true)
+    }
+    
     //MARK: - DownloadURLs
     
     /**
@@ -61,7 +77,7 @@ final class StorageManager {
                 completion(.failure(error))
             }
             else if let url = url {
-                completion(.success(PostModel(postURL: url, identifier: "", user: User(userName: users ?? "", profilePictureURL: nil, identifier: ""))))
+                completion(.success(PostModel(postURL: url, user: User(userName: users ?? "", profilePictureURL: nil, identifier: "", instrument: ""))))
             }
         }
     }

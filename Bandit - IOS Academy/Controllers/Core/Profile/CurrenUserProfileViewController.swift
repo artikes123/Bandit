@@ -9,6 +9,7 @@ import Firebase
 import FirebaseAuth
 import ProgressHUD
 import UIKit
+import AMTabView
 
 class CurrentUserProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
@@ -133,7 +134,7 @@ class CurrentUserProfileViewController: UIViewController, UICollectionViewDelega
     
     func fetchProfile() {
         StorageManager.shared.downloadProfilePicture(for: user.userName) { [weak self] (url) in
-            self?.user = User(userName: (self?.user.userName)!, profilePictureURL: url, identifier: "")
+            self?.user = User(userName: (self?.user.userName)!, profilePictureURL: url, identifier: "", instrument: "")
         }
     }
     //MARK: - Posts CollectiovView Funcs
@@ -297,7 +298,7 @@ extension CurrentUserProfileViewController {
             case .success(let downloadURL):
                 UserDefaults.standard.setValue(downloadURL.absoluteString, forKey: "profile_picture")
                 DispatchQueue.main.async {
-                    strongSelf.user = User(userName: strongSelf.user.userName, profilePictureURL: downloadURL, identifier: strongSelf.user.identifier)
+                    strongSelf.user = User(userName: strongSelf.user.userName, profilePictureURL: downloadURL, identifier: strongSelf.user.identifier, instrument: "")
                     ProgressHUD.showSuccess("Uploaded Image")
                     
                     strongSelf.collectionView.reloadData()
@@ -312,6 +313,13 @@ extension CurrentUserProfileViewController {
             
         }
     }
+    
+}
+extension CurrentUserProfileViewController: TabItem {
+    var tabImage: UIImage? {
+        return UIImage(systemName: "person.fill")
+    }
+    
     
 }
 

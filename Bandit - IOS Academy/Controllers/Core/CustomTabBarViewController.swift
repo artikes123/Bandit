@@ -1,19 +1,21 @@
 //
-//  TabBarViewController.swift
+//  CustomTabBarViewController.swift
 //  Bandit - IOS Academy
 //
-//  Created by Artun Erol on 8.06.2021.
+//  Created by Artun Erol on 11.08.2021.
 //
 
 import UIKit
+import AMTabView
 
-class TabBarViewController: UITabBarController {
+class CustomTabBarViewController: AMTabsViewController {
     
     private var signInPresented = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpControllers()
+
         // Do any additional setup after loading the view.
     }
     
@@ -23,7 +25,7 @@ class TabBarViewController: UITabBarController {
             presentSignInIfNeeded()
         }
     }
-   
+
     func presentSignInIfNeeded() {
         if !AuthManager.shared.isSignedIn {
             let vc = SignInViewController()
@@ -37,10 +39,9 @@ class TabBarViewController: UITabBarController {
         }
       
     }
-
-
+  
     private func setUpControllers() {
-        
+
 //        Tab bardaki controllerları tab bar item yapmak için kullanacağız
         
         let home = HomeViewController()
@@ -90,10 +91,10 @@ class TabBarViewController: UITabBarController {
         camera.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "camera"), tag: 3)
         nav3.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 4)
         nav4.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.crop.circle"), tag: 5)
-
-        tabBar.tintColor = .yellow
         
-        setViewControllers([nav1, nav2, cameraNav, nav3, nav4], animated: false)
+        viewControllers = [nav1, nav2, cameraNav, nav3, nav4]
+        
+        
     }
 
 }

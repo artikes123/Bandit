@@ -99,10 +99,10 @@ final class DatabaseManager {
     }
     //MARK: - Getting Posts
     
-    public func getGenrePosts(for genre: MusicCategories, completion: @escaping ([[String: String]]) -> Void) {
-
-        database.child(genre.title).observeSingleEvent(of: .value) { (snapshot) in
-            guard let posts = snapshot.value as? [[String: String]] else {
+    public func getGenrePosts(for genre: MusicCategories, completion: @escaping ([String: [String:Any]]) -> Void) {
+        let path = "posts/\(genre.title)"
+        database.child(path).observeSingleEvent(of: .value) { (snapshot) in
+            guard let posts = snapshot.value as? [String: [String:Any]] else {
                 print("Cant get postnames for getPostFileNames")
                 return
             }
@@ -111,25 +111,7 @@ final class DatabaseManager {
             }
         
         }
-    
-//    public func getGenrePosts2(for genre:  MusicCategories, completion: @escaping ([PostModel]) -> Void) {
-//        database.child(genre.title).observeSingleEvent(of: .value) { (snapshot) in
-//            guard let posts = snapshot.value as? [[String: String]] else {
-//                print("cant get genre posts from DB")
-//                completion([])
-//                return
-//            }
-//            let model : [PostModel] = posts.compactMap({ post in
-//                for (fileName, user) in post {
-//                    let postWithModel = PostModel(postURL: URL(fileURLWithPath: ""), identifier: "", user: User(userName: user, profilePictureURL: nil, identifier: ""), fileName: fileName, caption: "", postGenre: genre.title, banditURLs: nil, likedByCurrentUser: false)
-//                
-//                }
-//            })
-//            completion(model)
-//        }
-//    }
-    
-    
+
     public func getPosts(for user: User, completion: @escaping ([PostModel]) -> Void) {
         
         let path = "users/\(user.userName.lowercased())/posts"
@@ -144,7 +126,7 @@ final class DatabaseManager {
             }
             
             let models: [PostModel] = posts.compactMap({
-                var model = PostModel(postURL: URL(fileURLWithPath: ""), identifier: UUID().uuidString, user: user)
+                var model = PostModel(postURL: URL(fileURLWithPath: ""), user: user)
                 model.fileName = $0["FileName"] ?? ""
                 model.caption = $0["Caption"] ?? ""
                 model.postGenre = $0["Post Genre"] ?? ""
@@ -156,6 +138,10 @@ final class DatabaseManager {
     }
     
     //MARK: - Inserting Posts
+    
+    /**
+    Inserting posts under the user's posts
+     */
     public func insertPostsToDBUsers(with fileName: String, caption: String, genre: String, completion: @escaping (Bool) -> Void) {
         
         guard let username = UserDefaults.standard.string(forKey: "username") else {
@@ -197,37 +183,52 @@ final class DatabaseManager {
         
     }
     
-    public func insertPostsToDB(with fileName: String, genre: String, completion: @escaping (Bool) -> Void) {
-        
+    /**
+        Inserting posts to DB
+     */
+    
+    public func insertPostToDBwithModel(with model: PostModel, completion: @escaping (Bool) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username") else {
-            
             return
         }
-
-        database.child(genre).observeSingleEvent(of: .value) {[weak self] (snapshot) in
+        let value = ["username": username, "likedByCurrentUser" : model.likedByCurrentUser, "bandits": model.banditFileNames, "genre": model.postGenre, "caption": model.caption] as [String : Any]
+        let pathAllPosts = "posts/All_Posts/\(model.fileName)"
+        let pathGenrePosts = "posts/\(model.postGenre)/\(model.fileName)"
+        
+        database.child(pathAllPosts).observeSingleEvent(of: .value) { [weak self] (snapshot) in
             guard var postDictionary = snapshot.value as? [[String: Any]] else {
-                self?.database.child(genre).setValue([[fileName : username]], withCompletionBlock: { (error, _) in
+                self?.database.child(pathAllPosts).setValue(value) { (error, _) in
                     guard error == nil else {
+                        print("error is \(error)")
                         completion(false)
                         return
                     }
-                    print("no value in DB")
-                    completion(true)
-                })
+                    self?.database.child(pathGenrePosts).setValue(value) { (error, _) in
+                        guard error == nil else {
+                            completion(false)
+                            print("error is \(error)")
+                            return
+                        }
+                        completion(true)
+                    }
+                }
                 return
             }
-            
-            postDictionary.append([fileName: username])
-            self?.database.child(genre).setValue(postDictionary, withCompletionBlock: { (error, _) in
+            postDictionary.append(value)
+            self?.database.child(pathAllPosts).setValue(postDictionary,withCompletionBlock: { (error, _) in
                 guard error == nil else {
+                    print("error is \(error)")
                     completion(false)
                     return
                 }
-                print("value in db")
+                self?.database.child(pathGenrePosts).setValue(value)
                 completion(true)
             })
+            
         }
+        
     }
+
     
     //MARK: - Notifications
     public func getNotifications(completion: @escaping ([NotificationStruct]) -> Void) {

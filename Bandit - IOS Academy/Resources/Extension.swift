@@ -105,3 +105,15 @@ extension UIView {
         
     }
 }
+
+extension UIViewController {
+    
+    public func showAlert(viewControllerToPresent : UIViewController, with error: Error) {
+        let alert = UIAlertController(title: "Whoops", message: error.localizedDescription, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(viewControllerToPresent, animated: true, completion: nil)
+    }
+
+    
+}

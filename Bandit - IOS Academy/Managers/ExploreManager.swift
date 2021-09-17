@@ -80,7 +80,7 @@ final class ExploreManager {
             ExploreUserViewModel(userName: model.username, profilePicture: UIImage(named: model.image), follower: model.followers_count) { [weak self] in
                 DispatchQueue.main.async {
                     let userID = model.id
-                    let vc = ProfileViewController(user: User(userName: "Joe", profilePictureURL: nil, identifier: userID))
+                    let vc = ProfileViewController(user: User(userName: "Joe", profilePictureURL: nil, identifier: userID, instrument: ""))
                     self?.delegate?.pushViewController(vc)
                 }
                
